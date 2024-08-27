@@ -1,0 +1,28 @@
+.button {
+    padding: 7px 20px;
+    border: solid 1px;
+    border-radius: 100px;
+    transition: all .2s;
+    background-color: #fff;
+    color: #777;
+    cursor: pointer;
+    
+    &-disabled {
+        padding: 7px 20px;
+        background-color: #fff;
+        border: solid 1px;
+        border-radius: 100px;
+        color: #bebdbd;
+        
+    }
+
+
+    &:hover {
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+        transform: translateY(-0.5px);
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    }
+}

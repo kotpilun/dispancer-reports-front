@@ -1,0 +1,37 @@
+.table-context {
+    display: flex;
+    flex-basis: 100%;
+    flex: 2;
+    align-items: center;
+    width: 400px;
+    height: 44px;
+    padding: 10px 0 10px 0;
+
+    &-wrapper{
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+}
+
+.table-cell-center {
+    display: flex;
+    justify-content: center;
+}
+
+.edit-img {
+    width: 20px;
+    cursor: pointer;
+}
+
+.table-cell-action {
+    flex: 1;
+}
+
+.image-wrapper {
+    display: flex;
+    justify-content: start;
+    gap: 30px;
+}

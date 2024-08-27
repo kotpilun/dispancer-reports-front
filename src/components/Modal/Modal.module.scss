@@ -1,0 +1,58 @@
+
+.parent-modal {
+    position: fixed; 
+    z-index: 1; /* поверх всех элементов */
+    left: 0;
+    top: 0;
+    width: 100vw; /* полная ширина */
+    height: 100vh; /* полная высота */
+    background-color: rgba(0,0,0,0.5); /* цвет фона - прозрачный черный */
+}
+
+.modal {
+    background-color: #fff;
+    margin: 100px auto; 
+    padding: 20px;
+    width: 30%; 
+    border-radius: 0.25rem;
+}
+
+.input {
+    width: 100%;
+    padding: 8px 32px 8px 12px;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input::placeholder {
+    color: #212529;
+    opacity: 0.4;
+}
+
+.input:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #bdbdbd;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+}
+
+.input-wrapper{
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.button-wrapper {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 14px;
+    margin-bottom: 20px;
+}

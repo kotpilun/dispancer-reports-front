@@ -1,0 +1,33 @@
+.parent-modal {
+    position: fixed; 
+    z-index: 1; /* поверх всех элементов */
+    left: 0;
+    top: 0;
+    width: 100vw; /* полная ширина */
+    height: 100vh; /* полная высота */
+    background-color: rgba(0,0,0,0.5); /* цвет фона - прозрачный черный */
+}
+
+
+.modal {
+    background-color: #fff;
+    margin: 30vh auto; 
+    padding: 20px;
+    width: 30%; 
+    border-radius: 0.25rem;
+}
+
+.fio {
+    display: block;
+    margin: 30px 0 40px 0;
+    text-align: center;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 {
+    text-align: center; 
+}
