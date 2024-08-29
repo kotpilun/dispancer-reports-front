@@ -14,6 +14,7 @@ import { Row } from './components/Row';
 function App() {
 	const [children, setChildren] = useState([]);
 	const [filterText, setFilterText] = useState('');
+	const [countSelected, setCountSelected] = useState(0);
 
 	useEffect(() => {
 		const fetchChildrenData = async () => {
@@ -31,7 +32,10 @@ function App() {
 				<Header 
 					setFilterText={setFilterText}
 				/>
-				<Counter totalChildren={children.length} />
+				<Counter 
+					totalChildren={children.length} 
+					countSelected={countSelected}
+				/>
 				<TableHeader />
 				{
 					children
@@ -40,13 +44,15 @@ function App() {
 							if (a.sername > b.sername) return 1;  
 							return 0; 
 						})
-						.filter(item => item.surname.toLowerCase().includes(filterText.toLowerCase()))
+						.filter(obj => obj.surname.toLowerCase().includes(filterText.toLowerCase()))
 						.map(obj => (
 							<Row 
 								key={obj._id}
 								name={obj.name}
 								surname={obj.surname}
 								secondName={obj.secondName}
+								countSelected={countSelected}
+								setCountSelected={setCountSelected}
 							/>
 						))
 				}

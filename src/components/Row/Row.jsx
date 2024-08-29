@@ -1,14 +1,18 @@
 /* eslint-disable react/prop-types */
 import styles from './Row.module.scss'
 
-export function Row({ name, surname, secondName }) 
-    {
+export function Row({ name, surname, secondName, countSelected, setCountSelected }) {
+    const onChangeHandle = (e) => {
+        e.target.checked ? setCountSelected(countSelected + 1) : setCountSelected(countSelected - 1);
+    }
 
     return (
         <div className={styles["table-context-wrapper"]}>
             <div className={`${styles["table-cell-center"]} ${styles["table-cell-action"]}`}>
                 <input 
-                    type="checkbox" />
+                    type="checkbox" 
+                    onChange={e => onChangeHandle(e)}
+                    />
             </div>
             <div className={styles["table-context"]}>{surname}</div>
             <div className={styles["table-context"]}>{name}</div>
