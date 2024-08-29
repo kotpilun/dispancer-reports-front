@@ -4,13 +4,13 @@ import styles from './Header.module.scss';
 import { Button } from '../Button';
 import { Input } from '../Input';
 
-export const Header = () => {
+export function Header({ setFilterText }) {
     
-    return(
+    return (
         <div className={styles["table-header-wrapper"]}>
             <Button name="Добавить"/>
             <Button name="Сформировать отчет"/>
-            <Input/>
+            <Input setFilterText={setFilterText}/>
         </div>
         );
 };

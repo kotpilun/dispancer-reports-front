@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import styles from './Counter.module.scss'
 
-export function Counter({ altogether, selected }) {
+export function Counter({ totalChildren, selected }) {
     
     return (
         <div className={styles["counter-wrapper"]}>
             <div className={styles.counter}>
-                Всего: {altogether} 
+                Всего: {totalChildren} 
             </div>
             <div className={styles.counter}>
                 Выбрано: {selected}
