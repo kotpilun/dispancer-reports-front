@@ -2,8 +2,7 @@
 import styles from './Modal.module.scss';
 import { Button } from '../Button';
 
-export function Modal({ title = 'Редактирование информации о ребенке' }) {
-    // const [buttonDisable, setButtonDisable] = useState(true);
+export function Modal({ title = 'Редактирование информации о ребенке', childInfo, onClickHandle, action }) {
 
     return (
         <div className={styles["parent-modal"]}>
@@ -11,22 +10,21 @@ export function Modal({ title = 'Редактирование информаци
                 <h1>{title}</h1>
                 <span>Фамилия</span>
                 <div className={styles["input-wrapper"]}>
-                    <input type="text" className={styles.input} />
+                    <input type="text" className={styles.input} defaultValue={ childInfo.surname }/>
                 </div>
 
                 <span>Имя</span>
                 <div className={styles["input-wrapper"]}>
-                    <input type="text" className={styles.input} />
+                    <input type="text" className={styles.input} defaultValue={ childInfo.name }/>
                 </div>
 
                 <span>Отчество</span>
                 <div className={styles["input-wrapper"]}>
-                    <input type="text" className={styles.input} />
+                    <input type="text" className={styles.input} defaultValue={ childInfo.secondName }/>
                 </div>
                 <div className={styles["button-wrapper"]}>
-                    <Button name="Сохранить"/>
-                    <Button 
-                        name="Закрыть" />
+                    <Button name="Сохранить"action={action} onClickHandle={onClickHandle} />
+                    <Button name="Закрыть" action='close' onClickHandle={onClickHandle} />
                 </div>
             </div>
         </div>

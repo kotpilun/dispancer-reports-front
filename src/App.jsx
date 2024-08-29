@@ -15,6 +15,9 @@ function App() {
 	const [children, setChildren] = useState([]);
 	const [filterText, setFilterText] = useState('');
 	const [countSelected, setCountSelected] = useState(0);
+	const [isShowModal, setIsShowModal] = useState(false);
+	const [childInfo, setChildInfo] = useState({});
+	const [action, setAction] = useState('');
 
 	useEffect(() => {
 		const fetchChildrenData = async () => {
@@ -25,37 +28,70 @@ function App() {
 		fetchChildrenData();
 	}, []);
 
+	const onEditHandle = (childInfo) => {
+		setIsShowModal(!isShowModal);
+		setChildInfo(childInfo);
+		setAction('edit')
+	}
+
+	const onClickHandle = (action) => {
+		switch(action) {
+			case 'close': 
+				setIsShowModal(!isShowModal);
+				break;
+			case 'edit':
+				console.log('edit');
+				break;
+			case 'add':
+				console.log('add');
+				setAction('add');
+				setChildInfo(true);
+				setIsShowModal(!isShowModal);
+				break;
+		};
+	}
+
+	const renderRows = (children) => {
+		return (
+			children
+				.sort((a,b) => {
+					if (a.sername < b.sername) return -1;
+					if (a.sername > b.sername) return 1;  
+					return 0; 
+				})
+				.filter(obj => obj.surname.toLowerCase().includes(filterText.toLowerCase()))
+				.map(obj => (
+					<Row 
+						key={obj._id}
+						childInfo={obj}
+						countSelected={countSelected}
+						setCountSelected={setCountSelected}
+						onEditHandle={onEditHandle}
+					/>
+				))
+		);
+	};
+
 	return (
 			<Wrapper>
-				{/* <Modal/> */}
+				{isShowModal && 
+					<Modal 
+						childInfo={childInfo} 
+						onClickHandle={onClickHandle}
+						action={action}
+					/>
+				}
 				{/* <PopupModal/> */}
 				<Header 
 					setFilterText={setFilterText}
+					onClickHandle={onClickHandle}
 				/>
 				<Counter 
 					totalChildren={children.length} 
 					countSelected={countSelected}
 				/>
 				<TableHeader />
-				{
-					children
-						.sort((a,b) => {
-							if (a.sername < b.sername) return -1;
-							if (a.sername > b.sername) return 1;  
-							return 0; 
-						})
-						.filter(obj => obj.surname.toLowerCase().includes(filterText.toLowerCase()))
-						.map(obj => (
-							<Row 
-								key={obj._id}
-								name={obj.name}
-								surname={obj.surname}
-								secondName={obj.secondName}
-								countSelected={countSelected}
-								setCountSelected={setCountSelected}
-							/>
-						))
-				}
+				{renderRows(children)}
 			</Wrapper >
 	);
 };
