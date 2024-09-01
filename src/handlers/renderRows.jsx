@@ -1,0 +1,24 @@
+import { Row } from "../components/Row";
+
+export const renderRows = (children, searchValue, onEditHandle) => {
+    if (children.length > 0) {
+        return (
+            children
+            .slice()
+            .sort((a,b) => {
+                if (a.sername < b.sername) return -1;
+                if (a.sername > b.sername) return 1;  
+                return 0; 
+            })
+            .filter(obj => obj.surname.toLowerCase().includes(searchValue.toLowerCase()))
+            .map(obj => (
+                <Row 
+                    key={obj._id}
+                    childInfo={obj}
+                    onEditHandle={onEditHandle}
+                />
+            ))
+        );	
+    };
+    return null;
+};
