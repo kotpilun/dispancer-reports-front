@@ -1,9 +1,15 @@
 /* eslint-disable react/prop-types */
 import styles from './Input.module.scss'
+import findIcon from '../../assets/icons/search.png'
+import { useDispatch } from 'react-redux'
+import { setSearchValue } from '../../redux/slices/childrenListSlice';
 
-export function Input({ setFilterText }) {
+export function Input() {
+
+    const dispatch = useDispatch();
+    
     const searchHandle = (e) => {
-        setFilterText(e.target.value);
+        dispatch(setSearchValue(e.target.value));
     }
 
     return (
@@ -16,7 +22,7 @@ export function Input({ setFilterText }) {
                 onChange={(e) => searchHandle(e)}
             />
             <label htmlFor="search" className={styles.label} >
-                <img src="../public/icons/search.png" alt="search-img" className={styles["search-img"]} />
+                <img src={findIcon} alt="search-img" className={styles["search-img"]} />
             </label>
         </div>
     )

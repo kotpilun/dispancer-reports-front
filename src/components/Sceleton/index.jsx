@@ -1,0 +1,1 @@
+export { Sceleton } from './Sceleton'

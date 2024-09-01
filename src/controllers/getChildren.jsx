@@ -1,10 +1,11 @@
-import axios from 'axios';
-import { BFF_CONFIG } from '../config/config';
+import axios from './axios';
 
-const { HOST, PORT } = BFF_CONFIG;
+// import { BFF_CONFIG } from '../config/config';
+
+// const { HOST, PORT } = BFF_CONFIG;
 
 export function getChildrenFromDB() {
-    return axios.get(`http://${HOST}:${PORT}/children`)
+    return axios.get(`/children`)
         .then(response => {
             return response.data;
         })
