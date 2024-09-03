@@ -5,7 +5,7 @@ const initialState = {
     searchValue: '',
     children: {
         childrenList: [],
-        status: true
+        status: true,
     },
     childInfo: {},
 };
@@ -16,7 +16,7 @@ export const getChildren = createAsyncThunk(
         const data = await getChildrenFromDB();
         return data;
     }
-)
+);
 
 export const childrenSlice = createSlice({
     name: 'children',

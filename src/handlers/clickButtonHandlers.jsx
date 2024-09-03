@@ -1,6 +1,7 @@
 import { deleteChild } from '../controllers/deleteChild.jsx';
 import { setChildrenList, setChildInfo } from '../redux/slices/childrenListSlice.js';
 
+
 export const useOnClickHandlers = (dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup, childInfo, childrenList) => {
 
     const onClickHandle = (action) => {
@@ -19,15 +20,16 @@ export const useOnClickHandlers = (dispatch, setIsShowModal, setAction, isShowMo
             case 'close popup':
                 setIsShowPopup(!isShowPopup);
                 break;
-            case 'save editing':
-                console.log(childInfo)
-                break;
-            case 'delete':
-                console.log(childInfo);
-                deleteChild(childInfo._id);
-                setIsShowPopup(!isShowPopup);
-                childrenList = childrenList.filter(item => item._id != childInfo._id);
-                dispatch(setChildrenList(childrenList));
+                case 'save editing':
+                    console.log(childInfo)
+                    break;
+                    case 'delete':
+                        console.log(childInfo);
+                        deleteChild(childInfo._id);
+                        setIsShowPopup(!isShowPopup);
+                        childrenList = childrenList.filter(item => item._id != childInfo._id);
+                        dispatch(setChildrenList(childrenList));
+                        
                 break;    
         };
     };

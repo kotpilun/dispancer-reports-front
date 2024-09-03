@@ -2,6 +2,9 @@ import './scss/App.scss'
 import { useEffect } from 'react';
 import { useState } from 'react';
 
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 import { Header } from './components/Header';
 import { Spinner } from './components/Spinner';
 import { Modal } from './components/Modal';
@@ -36,6 +39,8 @@ function App() {
 	const { onEditHandle, onDeleteHandle } = useOnClicIconkHandlers(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
 
 	return (
+		<>
+			<ToastContainer theme="dark" />
 			<Wrapper>
 				{isShowModal && 
 					<Modal 
@@ -61,6 +66,7 @@ function App() {
 					{renderRows(children.childrenList, searchValue, onEditHandle, onDeleteHandle)}
 				</Wrapper>
 			</Wrapper >
+		</>
 	);
 };
 
