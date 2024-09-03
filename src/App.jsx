@@ -35,7 +35,7 @@ function App() {
 	}, []);
 
 
-	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup, childInfo, children.childrenList);
+	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, isShowModal, setIsShowPopup, isShowPopup, childInfo, children.childrenList);
 	const { onEditHandle, onDeleteHandle } = useOnClicIconkHandlers(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
 
 	return (
@@ -44,14 +44,12 @@ function App() {
 			<Wrapper>
 				{isShowModal && 
 					<Modal 
-					// childInfo={childInfo} 
 					onClickHandle={onClickHandle}
 					action={action}
 					/>
 				}
 				{isShowPopup && <PopupModal 
 					onClickHandle={onClickHandle}
-					// childInfo={childInfo} 
 				/>}
 				<Header 
 					onClickHandle={onClickHandle}
@@ -60,7 +58,6 @@ function App() {
 					totalChildren={children.childrenList.length} 
 					/>
 				<TableHeader />
-				{/* {children.status && [...Array(5)].map((_,index) => <Sceleton key={index}/>) } */}
 				<Wrapper>
 					{children.status && <Spinner />}
 					{renderRows(children.childrenList, searchValue, onEditHandle, onDeleteHandle)}
