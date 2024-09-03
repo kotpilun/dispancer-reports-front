@@ -3,14 +3,25 @@ import styles from './Modal.module.scss';
 import { Button } from '../Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChildInfo } from '../../redux/slices/childrenListSlice';
+import { useState } from 'react';
 
 export function Modal({ title = 'Редактирование информации о ребенке', onClickHandle, action }) {
+    const [isEnable, setIsEnable] = useState(false);
+
     const childInfo = useSelector((state) => state.childrenReducer.childInfo);
     const dispatch = useDispatch();
 
     const onChangeHandler = (e) => {
         const { name, value } = e.target;
-        dispatch(setChildInfo({ ...childInfo, [name]: value }));
+        const updatedChildInfo = { ...childInfo, [name]: value };
+        
+        dispatch(setChildInfo(updatedChildInfo));
+
+        const isFormValid = updatedChildInfo.name?.length >= 3 
+            && updatedChildInfo.surname?.length >= 3 
+            && updatedChildInfo.secondName?.length >= 3;
+
+        setIsEnable(isFormValid);
     };
 
     return (
@@ -52,7 +63,7 @@ export function Modal({ title = 'Редактирование информаци
                 </div>
 
                 <div className={styles["button-wrapper"]}>
-                    <Button name="Сохранить" action={action} onClickHandle={onClickHandle} />
+                    <Button name="Сохранить" action={action} onClickHandle={onClickHandle} isEnable={isEnable} />
                     <Button name="Закрыть" action="toggleModal" onClickHandle={onClickHandle} />
                 </div>
             </div>

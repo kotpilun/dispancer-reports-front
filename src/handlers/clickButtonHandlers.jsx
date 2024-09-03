@@ -5,7 +5,11 @@ import { setChildrenList } from '../redux/slices/childrenListSlice.js';
 
 
 export const useOnClickHandlers = (dispatch, setIsShowModal,  isShowModal, setIsShowPopup, isShowPopup, childInfo, childrenList) => {
-    const onClickHandle = async (action) => {
+    const onClickHandle = async (action, isEnable) => {
+        if (!isEnable) {
+            return null;
+        };
+        
         switch(action) {
             case 'toggleModal': 
                 setIsShowModal(!isShowModal);
