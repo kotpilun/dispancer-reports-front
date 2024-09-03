@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getChildren } from './redux/slices/childrenListSlice.js'
 import { useOnClickHandlers } from './handlers/clickbuttonHandlers.jsx';
 import { renderRows } from './handlers/renderRows';
-import { useOnClicIconkHandlers } from './handlers/clickIconsHandlers.jsx';
+import { useInitStates } from './handlers/initStates.jsx';
 
 function App() {
 	const [isShowModal, setIsShowModal] = useState(false);
@@ -36,7 +36,7 @@ function App() {
 
 
 	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, isShowModal, setIsShowPopup, isShowPopup, childInfo, children.childrenList);
-	const { onEditHandle, onDeleteHandle, onAddHandle } = useOnClicIconkHandlers(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
+	const { onEditHandle, onDeleteHandle, onAddHandle } = useInitStates(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
 
 	return (
 		<>

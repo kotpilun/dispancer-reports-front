@@ -9,7 +9,7 @@ export const useOnClickHandlers = (dispatch, setIsShowModal,  isShowModal, setIs
         if (!isEnable) {
             return null;
         };
-
+        
         switch(action) {
             case 'toggleModal': 
                 setIsShowModal(!isShowModal);

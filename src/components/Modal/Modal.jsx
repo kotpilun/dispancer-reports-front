@@ -3,7 +3,7 @@ import styles from './Modal.module.scss';
 import { Button } from '../Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChildInfo } from '../../redux/slices/childrenListSlice';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export function Modal({ title = 'Редактирование информации о ребенке', onClickHandle, action }) {
     const [isEnable, setIsEnable] = useState(false);
@@ -23,6 +23,19 @@ export function Modal({ title = 'Редактирование информаци
 
         setIsEnable(isFormValid);
     };
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                onClickHandle('toggleModal', true);
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [onClickHandle]);
 
     return (
         <div className={styles["parent-modal"]}>
