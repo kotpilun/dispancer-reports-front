@@ -2,9 +2,27 @@
 import styles from './PopupModal.module.scss'
 import { Button } from '../Button'
 import { useSelector } from 'react-redux'
+import { useEffect } from 'react';
 
 export function PopupModal({ onClickHandle }) {
     const childInfo = useSelector((state) => state.childrenReducer.childInfo);
+
+    useEffect(
+        () => {
+            const handleKeyDown = (e) => {
+                if (e.key === 'Escape') {
+                    onClickHandle('close popup', true);
+                }
+            };
+
+            document.addEventListener('keyup', handleKeyDown);
+
+            return () => {
+                document.removeEventListener('keyup', handleKeyDown)
+            };
+        },
+        []
+    );
 
     return (
         <div className={styles["parent-modal"]}>

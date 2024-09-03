@@ -35,7 +35,7 @@ export function Modal({ title = 'Редактирование информаци
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [onClickHandle]);
+    }, []);
 
     return (
         <div className={styles["parent-modal"]}>
