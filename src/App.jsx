@@ -36,7 +36,7 @@ function App() {
 
 
 	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, isShowModal, setIsShowPopup, isShowPopup, childInfo, children.childrenList);
-	const { onEditHandle, onDeleteHandle } = useOnClicIconkHandlers(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
+	const { onEditHandle, onDeleteHandle, onAddHandle } = useOnClicIconkHandlers(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
 
 	return (
 		<>
@@ -52,7 +52,7 @@ function App() {
 					onClickHandle={onClickHandle}
 				/>}
 				<Header 
-					onClickHandle={onClickHandle}
+					onAddHandle={onAddHandle}
 					/>
 				<Counter 
 					totalChildren={children.childrenList.length} 

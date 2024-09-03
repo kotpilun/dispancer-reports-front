@@ -6,8 +6,8 @@ export const renderRows = (children, searchValue, onEditHandle, onDeleteHandle) 
             children
             .slice()
             .sort((a,b) => {
-                if (a.sername < b.sername) return -1;
-                if (a.sername > b.sername) return 1;  
+                if (a.surname < b.surname) return -1;
+                if (a.surname > b.surname) return 1;  
                 return 0; 
             })
             .filter(obj => obj.surname.toLowerCase().includes(searchValue.toLowerCase()))

@@ -53,7 +53,7 @@ export function Modal({ title = 'Редактирование информаци
 
                 <div className={styles["button-wrapper"]}>
                     <Button name="Сохранить" action={action} onClickHandle={onClickHandle} />
-                    <Button name="Закрыть" action="close" onClickHandle={onClickHandle} />
+                    <Button name="Закрыть" action="toggleModal" onClickHandle={onClickHandle} />
                 </div>
             </div>
         </div>

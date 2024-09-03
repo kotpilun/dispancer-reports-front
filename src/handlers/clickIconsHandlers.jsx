@@ -12,7 +12,13 @@ export const useOnClicIconkHandlers = (dispatch, setIsShowModal, setAction, isSh
         setIsShowPopup(!isShowPopup);
     };
 
-    return { onEditHandle, onDeleteHandle };
+    const onAddHandle = () => {
+        setIsShowModal(!isShowModal);
+        dispatch(setChildInfo({}));
+        setAction('add');
+    }
+
+    return { onEditHandle, onDeleteHandle, onAddHandle };
 
 };
 

@@ -28,10 +28,24 @@
 
 .table-cell-action {
     flex: 1;
+
 }
 
 .image-wrapper {
     display: flex;
     justify-content: start;
     gap: 30px;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width: 30px;
+    height: 30px;
+
+    &:hover {
+        background-color: rgb(240, 240, 240);
+        border-radius: 50%;
+    }
 }
