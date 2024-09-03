@@ -2,7 +2,7 @@ import { notify } from "../handlers/notify";
 import axios from "./axios";
 
 export function deleteChild(id) {
-    axios.delete(`/children/${id}`)
+    return axios.delete(`/children/${id}`)
         .then(response => {
             notify('success', 'Данные о ребенке успешно удалены!');
             return response.data;
