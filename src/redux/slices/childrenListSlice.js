@@ -4,9 +4,10 @@ import { getChildrenFromDB } from "../../controllers/getChildren";
 const initialState = {
     searchValue: '',
     children: {
-        childrenList: {},
+        childrenList: [],
         status: true
-    }
+    },
+    childInfo: {},
 };
 
 export const getChildren = createAsyncThunk(
@@ -25,9 +26,13 @@ export const childrenSlice = createSlice({
             state.searchValue = action.payload;
         },
 
-        // setChildrenList: (state, action) => {
-        //     state.childrenList = action.payload;
-        // },
+        setChildrenList: (state, action) => {
+            state.children.childrenList = action.payload;
+        },
+        
+        setChildInfo: (state, action) => {
+            state.childInfo = action.payload;
+        }
     },
 
     extraReducers: (builder) => {
@@ -42,4 +47,4 @@ export const childrenSlice = createSlice({
 });
 
 export const childrenReducer = childrenSlice.reducer;
-export const { setChildrenList, setSearchValue } = childrenSlice.actions;
+export const { setChildrenList, setSearchValue, setChildInfo } = childrenSlice.actions;

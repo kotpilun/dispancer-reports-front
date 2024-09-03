@@ -1,10 +1,8 @@
-export const useOnClickHandlers = (setIsShowModal, setChildInfo, setAction, isShowModal) => {
-    const onEditHandle = (childInfo) => {
-        setIsShowModal(!isShowModal);
-        setChildInfo(childInfo);
-        setAction('edit')
-    };
-    
+import { deleteChild } from '../controllers/deleteChild.jsx';
+import { setChildrenList, setChildInfo } from '../redux/slices/childrenListSlice.js';
+
+export const useOnClickHandlers = (dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup, childInfo, childrenList) => {
+
     const onClickHandle = (action) => {
         switch(action) {
             case 'close': 
@@ -14,15 +12,27 @@ export const useOnClickHandlers = (setIsShowModal, setChildInfo, setAction, isSh
                 console.log('edit');
                 break;
             case 'add':
-                console.log('add');
                 setAction('add');
-                setChildInfo(true);
+                dispatch(setChildInfo({}));
                 setIsShowModal(!isShowModal);
                 break;
+            case 'close popup':
+                setIsShowPopup(!isShowPopup);
+                break;
+            case 'save editing':
+                console.log(childInfo)
+                break;
+            case 'delete':
+                console.log(childInfo);
+                deleteChild(childInfo._id);
+                setIsShowPopup(!isShowPopup);
+                childrenList = childrenList.filter(item => item._id != childInfo._id);
+                dispatch(setChildrenList(childrenList));
+                break;    
         };
     };
 
-    return { onEditHandle, onClickHandle };
+    return { onClickHandle };
 
 };
 

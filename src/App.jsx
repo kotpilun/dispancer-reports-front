@@ -13,34 +13,41 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getChildren } from './redux/slices/childrenListSlice.js'
 import { useOnClickHandlers } from './handlers/clickbuttonHandlers.jsx';
 import { renderRows } from './handlers/renderRows';
+import { useOnClicIconkHandlers } from './handlers/clickIconsHandlers.jsx';
 
 function App() {
 	const [isShowModal, setIsShowModal] = useState(false);
-	const [childInfo, setChildInfo] = useState({});
+	// флаг, указывающий откуда была открыта модалка, для понимания как должна работать кнопка Сохранить на модалке
 	const [action, setAction] = useState('');
+	const [isShowPopup, setIsShowPopup] = useState(false);
 
 	const dispatch = useDispatch();
+
 	const children = useSelector((store) => store.childrenReducer.children);
+	const childInfo = useSelector((state) => state.childrenReducer.childInfo);
 	const searchValue = useSelector((store) => store.childrenReducer.searchValue);
 
 	useEffect(() => {
 		dispatch(getChildren());
 	}, []);
 
-	const { onEditHandle, onClickHandle } = useOnClickHandlers(setIsShowModal, setChildInfo, setAction, isShowModal);
 
-	
+	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup, childInfo, children.childrenList);
+	const { onEditHandle, onDeleteHandle } = useOnClicIconkHandlers(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
 
 	return (
 			<Wrapper>
 				{isShowModal && 
 					<Modal 
-					childInfo={childInfo} 
+					// childInfo={childInfo} 
 					onClickHandle={onClickHandle}
 					action={action}
 					/>
 				}
-				{/* <PopupModal/> */}
+				{isShowPopup && <PopupModal 
+					onClickHandle={onClickHandle}
+					// childInfo={childInfo} 
+				/>}
 				<Header 
 					onClickHandle={onClickHandle}
 					/>
@@ -51,7 +58,7 @@ function App() {
 				{/* {children.status && [...Array(5)].map((_,index) => <Sceleton key={index}/>) } */}
 				<Wrapper>
 					{children.status && <Spinner />}
-					{renderRows(children.childrenList, searchValue, onEditHandle)}
+					{renderRows(children.childrenList, searchValue, onEditHandle, onDeleteHandle)}
 				</Wrapper>
 			</Wrapper >
 	);

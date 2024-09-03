@@ -1,6 +1,6 @@
 import { Row } from "../components/Row";
 
-export const renderRows = (children, searchValue, onEditHandle) => {
+export const renderRows = (children, searchValue, onEditHandle, onDeleteHandle) => {
     if (children.length > 0) {
         return (
             children
@@ -16,6 +16,7 @@ export const renderRows = (children, searchValue, onEditHandle) => {
                     key={obj._id}
                     childInfo={obj}
                     onEditHandle={onEditHandle}
+                    onDeleteHandle={onDeleteHandle}
                 />
             ))
         );	

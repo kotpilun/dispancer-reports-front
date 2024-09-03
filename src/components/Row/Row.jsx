@@ -5,21 +5,20 @@ import deleteIcon from '../../assets/icons/delete.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCount } from '../../redux/slices/countSlice';
 
-export function Row({ childInfo, onEditHandle }) {
+export function Row({ childInfo, onEditHandle, onDeleteHandle }) {
     const dispatch = useDispatch();
-    const count = useSelector((state) => state.countReduser.count)
+    const count = useSelector((state) => state.countReduser.count);
 
-    const onChangeHandle = (e) => {
-        // e.target.checked ? setCountSelected(countSelected + 1) : setCountSelected(countSelected - 1);
+    const onCheckBoxHandle = (e) => {
         e.target.checked ? dispatch(setCount(count + 1)) : dispatch(setCount(count - 1));
-    }
+    };
 
     return (
         <div className={styles["table-context-wrapper"]}>
             <div className={`${styles["table-cell-center"]} ${styles["table-cell-action"]}`}>
                 <input 
                     type="checkbox" 
-                    onChange={e => onChangeHandle(e)}
+                    onChange={e => onCheckBoxHandle(e)}
                     />
             </div>
             <div className={styles["table-context"]}>{childInfo.surname}</div>
@@ -28,7 +27,7 @@ export function Row({ childInfo, onEditHandle }) {
             <div className={styles["table-cell-action"]}>
                 <div className={styles["image-wrapper"]}>
                     <div className={styles.image}><img className={styles["edit-img"]} src={editIcon} alt="edit" onClick={() => onEditHandle(childInfo)} /></div>
-                    <div className={styles.image}><img className={styles["edit-img"]} src={deleteIcon} alt="delete" /></div>
+                    <div className={styles.image}><img className={styles["edit-img"]} src={deleteIcon} alt="delete" onClick={() => onDeleteHandle(childInfo)} /></div>
                 </div>
             </div>
         </div>

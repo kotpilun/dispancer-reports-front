@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import styles from './Modal.module.scss';
 import { Button } from '../Button';
+import { useSelector } from 'react-redux';
 
-export function Modal({ title = 'Редактирование информации о ребенке', childInfo, onClickHandle, action }) {
+export function Modal({ title = 'Редактирование информации о ребенке',  onClickHandle, action }) {
+    const childInfo = useSelector((state) => state.childrenReducer.childInfo);
 
     return (
         <div className={styles["parent-modal"]}>
