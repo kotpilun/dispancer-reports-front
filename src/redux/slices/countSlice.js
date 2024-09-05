@@ -5,7 +5,7 @@ const initialState = {
 }
 
 export const countSlice = createSlice({
-    name: 'acount',
+    name: 'count',
     initialState,
     reducers: {
         setCount: (state, action) => {

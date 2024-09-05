@@ -6,28 +6,28 @@ import { setChildInfo } from '../../redux/slices/childrenListSlice';
 import { useState, useEffect } from 'react';
 import { getAllDispancers } from '../../controllers/getDispancers';
 import { CATEGORIES } from '../../config/config';
+import { setDispancers } from '../../redux/slices/dispansersSlice';
 
 export function Modal({ title = 'Редактирование информации о ребенке', onClickHandle, action }) {
     const [isEnable, setIsEnable] = useState(false);
-    const [dispancers, setDispancers] = useState([]);
-
-
+    
     const childInfo = useSelector((state) => state.childrenReducer.childInfo);
+    const dispancers = useSelector((state) => state.dispancerReduser.dispancersInfo);
     const dispatch = useDispatch();
-
+    
     const onChangeHandler = (e) => {
         const { name, value } = e.target;
         const updatedChildInfo = { ...childInfo, [name]: value };
         
         dispatch(setChildInfo(updatedChildInfo));
-
+        
         const isFormValid = updatedChildInfo.name?.length >= 3 
-            && updatedChildInfo.surname?.length >= 3 
-            && updatedChildInfo.secondName?.length >= 3;
-
+        && updatedChildInfo.surname?.length >= 3 
+        && updatedChildInfo.secondName?.length >= 3;
+        
         setIsEnable(isFormValid);
     };
-
+    
     useEffect(() => {
             const handleKeyDown = (e) => {
                 if (e.key === 'Escape') {
@@ -41,7 +41,8 @@ export function Modal({ title = 'Редактирование информаци
             const fetchDispancers = async () => {
                 try {
                     const data = await getAllDispancers();
-                    setDispancers(data.allDispancers || []); 
+                    console.log('data', data.allDispancers)
+                    dispatch(setDispancers(data.allDispancers || []));
                 } catch (err) {
                     console.error("Ошибка получения диспансеров", err);
                     setDispancers([]);
@@ -65,6 +66,7 @@ export function Modal({ title = 'Редактирование информаци
     };
 
     const renderDispancers = () => {
+        console.log('dispancers', dispancers)
         return dispancers.map((value) => (
             <option key={value._id} value={value.name}>
                 {value.name}
@@ -138,7 +140,7 @@ export function Modal({ title = 'Редактирование информаци
                 <select
                     name="sportsCategory"
                     id="sportsCategory"
-                    value={childInfo.sportsCategory || ''}
+                    value={childInfo?.sportsCategory || ''}
                     onChange={onChangeHandler}
                 >
                     {renderSportStates()}
@@ -148,9 +150,9 @@ export function Modal({ title = 'Редактирование информаци
                 <span>Диспансер</span>
                 <div className={styles["input-wrapper"]}>
                 <select
-                    name="Dispancer"
-                    id="Dispancer"
-                    value={childInfo.dispancer.name || ''}
+                    name="dispancer"
+                    id="dispancer"
+                    value={childInfo?.dispancer || ''}
                     onChange={onChangeHandler}
                 >
                     {renderDispancers()}

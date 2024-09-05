@@ -1,3 +1,4 @@
+import { CATEGORIES } from '../config/config.js';
 import { setChildInfo } from '../redux/slices/childrenListSlice.js';
 
 export const useInitStates = (dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup) => {
@@ -14,7 +15,8 @@ export const useInitStates = (dispatch, setIsShowModal, setAction, isShowModal, 
 
     const onAddHandle = () => {
         setIsShowModal(!isShowModal);
-        dispatch(setChildInfo({}));
+        const sportsCategory = Object.values(CATEGORIES)[0];
+        dispatch(setChildInfo({sportsCategory}));
         setAction('add');
     }
 

@@ -13,3 +13,4 @@ export const CATEGORIES = {
     firstV: "1 р.",
     kms: "КМС"
 };
+
