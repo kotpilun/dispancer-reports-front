@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setChildInfo } from '../../redux/slices/childrenListSlice';
 import { useState, useEffect } from 'react';
 import { getAllDispancers } from '../../controllers/getDispancers';
+import { CATEGORIES } from '../../config/config';
 
 export function Modal({ title = 'Редактирование информации о ребенке', onClickHandle, action }) {
     const [isEnable, setIsEnable] = useState(false);
     const [dispancers, setDispancers] = useState([]);
+
 
     const childInfo = useSelector((state) => state.childrenReducer.childInfo);
     const dispatch = useDispatch();
@@ -27,60 +29,49 @@ export function Modal({ title = 'Редактирование информаци
     };
 
     useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (e.key === 'Escape') {
-                onClickHandle('toggleModal', true);
-            }
-        };
+            const handleKeyDown = (e) => {
+                if (e.key === 'Escape') {
+                    onClickHandle('toggleModal', true);
+                }
+            };
 
-        document.addEventListener('keydown', handleKeyDown);
+            document.addEventListener('keydown', handleKeyDown);
 
-        //получаем список диспансеров
-        const fetchDispancers = async () => {
-            try {
-                const data = await getAllDispancers();
-                setDispancers(data.allDispancers || []); 
-            } catch (err) {
-                console.error("Ошибка получения диспансеров", err);
-                setDispancers([]);
-            }
-        };
-        
-        fetchDispancers();
-        
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
+            //получаем список диспансеров
+            const fetchDispancers = async () => {
+                try {
+                    const data = await getAllDispancers();
+                    setDispancers(data.allDispancers || []); 
+                } catch (err) {
+                    console.error("Ошибка получения диспансеров", err);
+                    setDispancers([]);
+                }
+            };
+            
+            fetchDispancers();
+            
+            return () => {
+                document.removeEventListener('keydown', handleKeyDown);
         };
     }, []);
     
-    const categories = {
-        br: "б/р",
-        thirdU: "3 юн. р.",
-        secondU: "2 юн. р.",
-        firstU: "1 юн. р.",
-        thirdV: "3 р.",
-        secondV: "2 р.",
-        firstV: "1 р.",
-        kms: "КМС"
-    };
-    
     const renderSportStates = () => {
-        return Object.entries(categories).map(([key, value]) => (
-            <option key={key} value={key} defaultValue={childInfo.sportsCategory === value ? "selected" : null}>
+
+        return Object.entries(CATEGORIES).map(([key, value]) => (
+            <option key={key} value={value}>
                 {value}
             </option>
         ));
     };
 
     const renderDispancers = () => {
-        console.log(dispancers)
         return dispancers.map((value) => (
-            <option key={value._id} value={value._id} defaultValue={childInfo.dispancer === value.name ? "selected" : null}>
+            <option key={value._id} value={value.name}>
                 {value.name}
             </option>
         ));
-        // return null
-    }
+    };
+
 
     return (
         <div className={styles["parent-modal"]}>
@@ -144,18 +135,27 @@ export function Modal({ title = 'Редактирование информаци
 
                 <span>Разряд</span>
                 <div className={styles["input-wrapper"]}>
-                    <select name="sportsCategory" id="sportsCategory">
-                        {renderSportStates()}
-                    </select>
+                <select
+                    name="sportsCategory"
+                    id="sportsCategory"
+                    value={childInfo.sportsCategory || ''}
+                    onChange={onChangeHandler}
+                >
+                    {renderSportStates()}
+                </select>
                 </div>
 
                 <span>Диспансер</span>
                 <div className={styles["input-wrapper"]}>
-                    <select name="sportsCategory" id="sportsCategory">
-                        {renderDispancers()}
-                    </select>
+                <select
+                    name="Dispancer"
+                    id="Dispancer"
+                    value={childInfo.dispancer.name || ''}
+                    onChange={onChangeHandler}
+                >
+                    {renderDispancers()}
+                </select>
                 </div>
-                
 
                 <div className={styles["button-wrapper"]}>
                     <Button name="Сохранить" action={action} onClickHandle={onClickHandle} isEnable={isEnable} />
