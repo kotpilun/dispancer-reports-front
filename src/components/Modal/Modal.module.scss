@@ -56,3 +56,14 @@ h1 {
     font-size: 14px;
     margin-bottom: 20px;
 }
+
+select {
+    width: 100%;
+    padding: 8px 32px 8px 12px;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}

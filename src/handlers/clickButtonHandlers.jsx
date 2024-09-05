@@ -1,4 +1,5 @@
 import { addChild } from '../controllers/addChild.jsx';
+import { createDoc } from '../controllers/createDoc.jsx';
 import { deleteChild } from '../controllers/deleteChild.jsx';
 import { patchChild } from '../controllers/patchChild.jsx';
 import { setChildrenList } from '../redux/slices/childrenListSlice.js';
@@ -52,6 +53,16 @@ export const useOnClickHandlers = (dispatch, setIsShowModal,  isShowModal, setIs
                 } catch (error) {
                     console.error("Error deleting child:", error);
                 } 
+                break;
+
+            case 'create doc':
+                try {
+                    await createDoc();
+                    break;   
+                } catch (error) {
+                    console.error("Error deleting child:", error);
+                } 
+                break;
         };
     };
 

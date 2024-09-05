@@ -24,6 +24,9 @@ export function Row({ childInfo, onEditHandle, onDeleteHandle }) {
             <div className={styles["table-context"]}>{childInfo.surname}</div>
             <div className={styles["table-context"]}>{childInfo.name}</div>
             <div className={styles["table-context"]}>{childInfo.secondName}</div>
+            <div className={styles["table-context"]}>{childInfo.sportsCategory}</div>
+            <div className={styles["table-context"]}>{childInfo.dateOfBirth}</div>
+            <div className={styles["table-context"]}>{childInfo.dispancer.name}</div>
             <div className={styles["table-cell-action"]}>
                 <div className={styles["image-wrapper"]}>
                     <div className={styles.image}><img className={styles["edit-img"]} src={editIcon} alt="edit" onClick={() => onEditHandle(childInfo)} /></div>

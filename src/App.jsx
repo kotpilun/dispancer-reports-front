@@ -53,6 +53,7 @@ function App() {
 				/>}
 				<Header 
 					onAddHandle={onAddHandle}
+					onClickHandle={onClickHandle}
 					/>
 				<Counter 
 					totalChildren={children.childrenList.length} 

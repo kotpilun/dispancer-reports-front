@@ -10,6 +10,9 @@ export function TableHeader() {
         <div className={styles["table-header"]}>Фамилия</div>
         <div className={styles["table-header"]}>Имя</div>
         <div className={styles["table-header"]}>Отчество</div>
+        <div className={styles["table-header"]}>Разряд</div>
+        <div className={styles["table-header"]}>Дата рождения</div>
+        <div className={styles["table-header"]}>Диспансер</div>
         <div className={`${styles["table-header"]} ${styles["table-cell-action"]}`}>Действие</div>
     </div>
     )
