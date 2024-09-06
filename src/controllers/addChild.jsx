@@ -10,7 +10,7 @@ export function addChild(data) {
         .catch(err => {
             let errMessage = '';
             err.response.data.forEach(item => errMessage += item.msg + '\n')
-            notify('error', errMessage);
+            notify('error','Ошибка при добавлении ребенка');
             console.log('Ошибка добавления данных', err.response.data);
             throw err;  
         });

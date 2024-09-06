@@ -3,7 +3,7 @@ import { createDoc } from '../controllers/createDoc.jsx';
 import { deleteChild } from '../controllers/deleteChild.jsx';
 import { patchChild } from '../controllers/patchChild.jsx';
 import { setChildInfo, setChildrenList } from '../redux/slices/childrenListSlice.js';
-
+import { excangeNameIdDispanser } from '../utils/excangeNameIdDispanser.js';
 
 export const useOnClickHandlers = (
         dispatch, 
@@ -27,17 +27,10 @@ export const useOnClickHandlers = (
 
             case 'edit':
                 try {
-                    //заменяем название диспансера на _id
-                    console.log('dispancers.allDispancers', dispancers.allDispancers)
-                    let newChildInfo = { ...childInfo };  
-                    
-                    dispancers.allDispancers.forEach(item => {
-                        if (item.name === childInfo.dispancer) {
-                            newChildInfo.dispancer = item._id;
-                            setChildInfo(newChildInfo);
-                        }
-                    });
-                    
+                    let newChildInfo = excangeNameIdDispanser(childInfo, dispancers);
+
+                    setChildInfo(newChildInfo);
+
                     await patchChild(childInfo._id, newChildInfo);
                     childrenList = childrenList.map(item => item._id === childInfo._id ? childInfo : item);
                     dispatch(setChildrenList(childrenList));
@@ -51,7 +44,11 @@ export const useOnClickHandlers = (
 
             case 'add':
                 try {
-                    const newChild = await addChild(childInfo);  
+                    let newChildInfo = excangeNameIdDispanser(childInfo, dispancers);
+
+                    setChildInfo(newChildInfo);
+
+                    const newChild = await addChild(newChildInfo);  
                     const newChildrenList = [...childrenList, newChild.child];
                     dispatch(setChildrenList(newChildrenList));
                     setIsShowModal(!isShowModal);
