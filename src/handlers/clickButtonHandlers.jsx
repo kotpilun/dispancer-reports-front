@@ -2,10 +2,19 @@ import { addChild } from '../controllers/addChild.jsx';
 import { createDoc } from '../controllers/createDoc.jsx';
 import { deleteChild } from '../controllers/deleteChild.jsx';
 import { patchChild } from '../controllers/patchChild.jsx';
-import { setChildrenList } from '../redux/slices/childrenListSlice.js';
+import { setChildInfo, setChildrenList } from '../redux/slices/childrenListSlice.js';
 
 
-export const useOnClickHandlers = (dispatch, setIsShowModal,  isShowModal, setIsShowPopup, isShowPopup, childInfo, childrenList) => {
+export const useOnClickHandlers = (
+        dispatch, 
+        setIsShowModal,  
+        isShowModal, 
+        setIsShowPopup, 
+        isShowPopup, 
+        childInfo, 
+        childrenList, 
+        dispancers
+) => {
     const onClickHandle = async (action, isEnable) => {
         if (!isEnable) {
             return null;
@@ -18,9 +27,21 @@ export const useOnClickHandlers = (dispatch, setIsShowModal,  isShowModal, setIs
 
             case 'edit':
                 try {
-                    await patchChild(childInfo._id, childInfo);
+                    //заменяем название диспансера на _id
+                    console.log('dispancers.allDispancers', dispancers.allDispancers)
+                    let newChildInfo = { ...childInfo };  
+                    
+                    dispancers.allDispancers.forEach(item => {
+                        if (item.name === childInfo.dispancer) {
+                            newChildInfo.dispancer = item._id;
+                            setChildInfo(newChildInfo);
+                        }
+                    });
+                    
+                    await patchChild(childInfo._id, newChildInfo);
                     childrenList = childrenList.map(item => item._id === childInfo._id ? childInfo : item);
                     dispatch(setChildrenList(childrenList));
+
                     setIsShowModal(!isShowModal);
                 } catch (error) {
                     console.error("Error editing child:", error);

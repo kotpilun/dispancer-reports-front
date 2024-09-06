@@ -17,6 +17,7 @@ import { getChildren } from './redux/slices/childrenListSlice.js'
 import { useOnClickHandlers } from './handlers/clickbuttonHandlers.jsx';
 import { renderRows } from './handlers/renderRows';
 import { useInitStates } from './handlers/initStates.jsx';
+import TestComponent from './components/TestComponent/TestComponent.jsx';
 
 function App() {
 	const [isShowModal, setIsShowModal] = useState(false);
@@ -29,14 +30,15 @@ function App() {
 	const children = useSelector((store) => store.childrenReducer.children);
 	const childInfo = useSelector((state) => state.childrenReducer.childInfo);
 	const searchValue = useSelector((store) => store.childrenReducer.searchValue);
+	const dispancers = useSelector((state) => state.dispancerReduser.dispancersInfo)
 
 	useEffect(() => {
 		dispatch(getChildren());
 	}, []);
+	
 
-
-	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, isShowModal, setIsShowPopup, isShowPopup, childInfo, children.childrenList);
-	const { onEditHandle, onDeleteHandle, onAddHandle } = useInitStates(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
+	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, isShowModal, setIsShowPopup, isShowPopup, childInfo, children.childrenList, dispancers);
+	const { onEditHandle, onDeleteHandle, onAddHandle } = useInitStates(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup, dispancers);
 
 	return (
 		<>

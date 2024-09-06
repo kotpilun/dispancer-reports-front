@@ -4,20 +4,22 @@ import { Button } from '../Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChildInfo } from '../../redux/slices/childrenListSlice';
 import { useState, useEffect } from 'react';
-import { getAllDispancers } from '../../controllers/getDispancers';
 import { CATEGORIES } from '../../config/config';
-import { setDispancers } from '../../redux/slices/dispansersSlice';
+import { getDispancers } from '../../redux/slices/dispansersSlice';
 
 export function Modal({ title = 'Редактирование информации о ребенке', onClickHandle, action }) {
+
     const [isEnable, setIsEnable] = useState(false);
     
     const childInfo = useSelector((state) => state.childrenReducer.childInfo);
     const dispancers = useSelector((state) => state.dispancerReduser.dispancersInfo);
+
     const dispatch = useDispatch();
     
     const onChangeHandler = (e) => {
         const { name, value } = e.target;
         const updatedChildInfo = { ...childInfo, [name]: value };
+        console.log(childInfo)
         
         dispatch(setChildInfo(updatedChildInfo));
         
@@ -27,7 +29,8 @@ export function Modal({ title = 'Редактирование информаци
         
         setIsEnable(isFormValid);
     };
-    
+
+
     useEffect(() => {
             const handleKeyDown = (e) => {
                 if (e.key === 'Escape') {
@@ -37,19 +40,7 @@ export function Modal({ title = 'Редактирование информаци
 
             document.addEventListener('keydown', handleKeyDown);
 
-            //получаем список диспансеров
-            const fetchDispancers = async () => {
-                try {
-                    const data = await getAllDispancers();
-                    console.log('data', data.allDispancers)
-                    dispatch(setDispancers(data.allDispancers || []));
-                } catch (err) {
-                    console.error("Ошибка получения диспансеров", err);
-                    setDispancers([]);
-                }
-            };
-            
-            fetchDispancers();
+            dispatch(getDispancers());
             
             return () => {
                 document.removeEventListener('keydown', handleKeyDown);
@@ -66,14 +57,18 @@ export function Modal({ title = 'Редактирование информаци
     };
 
     const renderDispancers = () => {
-        console.log('dispancers', dispancers)
-        return dispancers.map((value) => (
+        // console.log(dispancers)
+        if (!dispancers?.allDispancers?.length) {
+            return null; // Возвращаем null, если данных нет
+        }
+    
+        return dispancers.allDispancers.map((value) => (
             <option key={value._id} value={value.name}>
                 {value.name}
             </option>
         ));
+        // null;
     };
-
 
     return (
         <div className={styles["parent-modal"]}>
