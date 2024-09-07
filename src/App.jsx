@@ -35,7 +35,7 @@ function App() {
 	
 
 	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, isShowModal, setIsShowPopup, isShowPopup);
-	const { onEditHandle, onDeleteHandle, onAddHandle } = useInitStates(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
+	const { onEditHandle, onDeleteHandle } = useInitStates(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
 
 	return (
 		<>
@@ -51,7 +51,7 @@ function App() {
 					onClickHandle={onClickHandle}
 				/>}
 				<Header 
-					onAddHandle={onAddHandle}
+					// onAddHandle={onAddHandle}
 					onClickHandle={onClickHandle}
 					/>
 				<Counter 

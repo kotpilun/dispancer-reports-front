@@ -5,7 +5,6 @@ import { setChildInfo } from '../redux/slices/childrenListSlice.js';
 
 export const useInitStates = (dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup) => {
     const dispancers = useSelector((state) => state.dispancerReduser.dispancersInfo);
-
     const onEditHandle = (childInfo) => {
         setIsShowModal(!isShowModal);
         dispatch(setChildInfo(childInfo));
@@ -21,6 +20,7 @@ export const useInitStates = (dispatch, setIsShowModal, setAction, isShowModal, 
         setIsShowModal(!isShowModal);
         const sportsCategory = Object.values(CATEGORIES)[0];
         const dispancerByDefault = dispancers?.allDispancers[0]?.name;
+        console.log('onAddHandle')
         dispatch(setChildInfo({ sportsCategory, dispancer: dispancerByDefault }));
         setAction('add');
     }

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useSelector } from 'react-redux';
 import { addChild } from '../controllers/addChild.jsx';
 import { createDoc } from '../controllers/createDoc.jsx';
@@ -5,28 +6,45 @@ import { deleteChild } from '../controllers/deleteChild.jsx';
 import { patchChild } from '../controllers/patchChild.jsx';
 import { setChildInfo, setChildrenList } from '../redux/slices/childrenListSlice.js';
 import { excangeNameIdDispanser } from '../utils/excangeNameIdDispanser.js';
+import { CATEGORIES } from '../config/config.js';
+import { getDispancers } from '../redux/slices/dispansersSlice.js';
+import { useEffect } from 'react';
 
 export const useOnClickHandlers = (
-        dispatch, 
-        setIsShowModal,  
-        isShowModal, 
-        setIsShowPopup, 
-        isShowPopup) => {
+    dispatch, 
+    setIsShowModal,  
+    isShowModal, 
+    setIsShowPopup, 
+    isShowPopup) => {
+
     const dispancers = useSelector((state) => state.dispancerReduser.dispancersInfo);
     const children = useSelector((store) => store.childrenReducer.children);
     const childInfo = useSelector((state) => state.childrenReducer.childInfo);
-    
     let childrenList = children.childrenList;
 
+    useEffect(() => {
+        if (dispancers?.allDispancers?.length > 0) {
+            const sportsCategory = Object.values(CATEGORIES)[0];
+            const dispancerByDefault = dispancers.allDispancers[0]?.name;
+            dispatch(setChildInfo({ sportsCategory, dispancer: dispancerByDefault }));
+        } 
+        
+    }, [dispancers, dispatch]); 
+    
     const onClickHandle = async (action, isEnable) => {
-        if (!isEnable) {
-            return null;
-        };
+        if (!isEnable) return null;
         
         switch(action) {
-            case 'toggleModal': 
+            case 'toggleModal': {
+                setIsShowModal(!isShowModal);
+                await dispatch(getDispancers());
+                break;
+            }
+
+            case 'closeModal': {
                 setIsShowModal(!isShowModal);
                 break;
+            }
 
             case 'edit':
                 try {

@@ -9,7 +9,6 @@ import { useSelect } from '../../hooks/useSelect';
 import { Select } from '../Select/Select';
 
 export function Modal({ onClickHandle, action }) {
-    console.log('action',action)
     let title ='';
     action === "add" ? title = 'Добавление информации о ребенке' : 'Редактирование информации о ребенке';
 
@@ -50,7 +49,7 @@ export function Modal({ onClickHandle, action }) {
 
                 <div className={styles["button-wrapper"]}>
                     <Button name="Сохранить" action={action} onClickHandle={onClickHandle} isEnable={isEnable} />
-                    <Button name="Закрыть" action="toggleModal" onClickHandle={onClickHandle} />
+                    <Button name="Закрыть" action="closeModal" onClickHandle={onClickHandle} />
                 </div>
             </div>
         </div>
