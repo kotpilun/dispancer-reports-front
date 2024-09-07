@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { addChild } from '../controllers/addChild.jsx';
 import { createDoc } from '../controllers/createDoc.jsx';
 import { deleteChild } from '../controllers/deleteChild.jsx';
@@ -10,11 +11,13 @@ export const useOnClickHandlers = (
         setIsShowModal,  
         isShowModal, 
         setIsShowPopup, 
-        isShowPopup, 
-        childInfo, 
-        childrenList, 
-        dispancers
-) => {
+        isShowPopup) => {
+    const dispancers = useSelector((state) => state.dispancerReduser.dispancersInfo);
+    const children = useSelector((store) => store.childrenReducer.children);
+    const childInfo = useSelector((state) => state.childrenReducer.childInfo);
+    
+    let childrenList = children.childrenList;
+
     const onClickHandle = async (action, isEnable) => {
         if (!isEnable) {
             return null;

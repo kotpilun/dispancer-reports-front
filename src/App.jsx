@@ -27,17 +27,15 @@ function App() {
 	const dispatch = useDispatch();
 
 	const children = useSelector((store) => store.childrenReducer.children);
-	const childInfo = useSelector((state) => state.childrenReducer.childInfo);
 	const searchValue = useSelector((store) => store.childrenReducer.searchValue);
-	const dispancers = useSelector((state) => state.dispancerReduser.dispancersInfo)
 
 	useEffect(() => {
 		dispatch(getChildren());
 	}, []);
 	
 
-	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, isShowModal, setIsShowPopup, isShowPopup, childInfo, children.childrenList, dispancers);
-	const { onEditHandle, onDeleteHandle, onAddHandle } = useInitStates(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup, dispancers);
+	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, isShowModal, setIsShowPopup, isShowPopup);
+	const { onEditHandle, onDeleteHandle, onAddHandle } = useInitStates(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
 
 	return (
 		<>

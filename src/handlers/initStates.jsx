@@ -1,8 +1,11 @@
+import { useSelector } from 'react-redux';
 import { CATEGORIES } from '../config/config.js';
 import { setChildInfo } from '../redux/slices/childrenListSlice.js';
 
 
-export const useInitStates = (dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup, dispancers) => {
+export const useInitStates = (dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup) => {
+    const dispancers = useSelector((state) => state.dispancerReduser.dispancersInfo);
+
     const onEditHandle = (childInfo) => {
         setIsShowModal(!isShowModal);
         dispatch(setChildInfo(childInfo));
