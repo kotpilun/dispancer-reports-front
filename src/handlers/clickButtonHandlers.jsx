@@ -8,7 +8,7 @@ import { setChildInfo, setChildrenList } from '../redux/slices/childrenListSlice
 import { excangeNameIdDispanser } from '../utils/excangeNameIdDispanser.js';
 import { CATEGORIES } from '../config/config.js';
 import { getDispancers } from '../redux/slices/dispansersSlice.js';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useOnClickHandlers = (
     dispatch, 
@@ -20,24 +20,29 @@ export const useOnClickHandlers = (
     const dispancers = useSelector((state) => state.dispancerReduser.dispancersInfo);
     const children = useSelector((store) => store.childrenReducer.children);
     const childInfo = useSelector((state) => state.childrenReducer.childInfo);
+    const [toggleModalAction, setToggleModalAction] = useState(false);
     let childrenList = children.childrenList;
 
     useEffect(() => {
-        if (dispancers?.allDispancers?.length > 0) {
-            const sportsCategory = Object.values(CATEGORIES)[0];
-            const dispancerByDefault = dispancers.allDispancers[0]?.name;
-            dispatch(setChildInfo({ sportsCategory, dispancer: dispancerByDefault }));
-        } 
+        if (toggleModalAction) {
+            if (dispancers?.allDispancers?.length > 0) {
+                const sportsCategory = Object.values(CATEGORIES)[0];
+                const dispancerByDefault = dispancers.allDispancers[0]?.name;
+                dispatch(setChildInfo({ sportsCategory, dispancer: dispancerByDefault }));
+            } 
+        }
         
-    }, [dispancers, dispatch]); 
+    }, [toggleModalAction, dispancers, dispatch]); 
     
     const onClickHandle = async (action, isEnable) => {
         if (!isEnable) return null;
         
         switch(action) {
             case 'toggleModal': {
+                setToggleModalAction(true);
                 setIsShowModal(!isShowModal);
                 await dispatch(getDispancers());
+                setToggleModalAction(false);
                 break;
             }
 
