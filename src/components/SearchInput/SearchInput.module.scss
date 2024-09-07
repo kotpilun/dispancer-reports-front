@@ -1,9 +1,18 @@
 .input-wrapper{
-    margin-bottom: 10px;
-    margin-top: 5px;
+    position: relative;
 }
 
-.input {
+.label {
+    position: absolute;
+    right: -1%;
+    top: 14%;
+}
+
+.search-img {
+    width: 70%;
+}
+
+.input-find {
     width: 100%;
     padding: 8px 32px 8px 12px;
     color: #212529;
@@ -14,12 +23,12 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.input::placeholder {
+.input-find::placeholder {
     color: #212529;
     opacity: 0.4;
 }
 
-.input:focus {
+.input-find:focus {
     color: #212529;
     background-color: #fff;
     border-color: #bdbdbd;

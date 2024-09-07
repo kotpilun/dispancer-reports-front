@@ -2,7 +2,7 @@
 import styles from './Header.module.scss';
 
 import { Button } from '../Button';
-import { Input } from '../Input';
+import { SearchInput } from '../SearchInput';
 
 export function Header({ onAddHandle, onClickHandle }) {
     
@@ -10,7 +10,7 @@ export function Header({ onAddHandle, onClickHandle }) {
         <div className={styles["table-header-wrapper"]}>
             <Button name="Добавить" action='toggleModal' onClickHandle={onAddHandle}/>
             <Button name="Сформировать отчет"   action='create doc' onClickHandle={onClickHandle}/>
-            <Input />
+            <SearchInput />
         </div>
         );
 };

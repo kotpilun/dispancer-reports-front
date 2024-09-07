@@ -1,29 +1,24 @@
 /* eslint-disable react/prop-types */
-import styles from './Input.module.scss'
-import findIcon from '../../assets/icons/search.png'
-import { useDispatch } from 'react-redux'
-import { setSearchValue } from '../../redux/slices/childrenListSlice';
+import { useSelector } from 'react-redux';
+import styles from './Input.module.scss';
+import { useModal } from '../../hooks/useModal';
 
-export function Input() {
-
-    const dispatch = useDispatch();
-    
-    const searchHandle = (e) => {
-        dispatch(setSearchValue(e.target.value));
-    }
+export function Input({ label, type, name }) {
+    const childInfo = useSelector((state) => state.childrenReducer.childInfo);
+    const { onChangeHandler } = useModal()
 
     return (
-        <div className={styles["input-wrapper"]}>
-            <input 
-                id="search" 
-                className= {`${styles["input-find"]} ${styles["header-item"]}`} 
-                type="text"
-                placeholder='Поиск' 
-                onChange={(e) => searchHandle(e)}
-            />
-            <label htmlFor="search" className={styles.label} >
-                <img src={findIcon} alt="search-img" className={styles["search-img"]} />
-            </label>
-        </div>
-    )
-}
+        <>
+            <span>{label}</span>
+            <div className={styles["input-wrapper"]}>
+                <input
+                    type={type}
+                    name={name}
+                    className={styles.input}
+                    value={childInfo[name] || ''}
+                    onChange={onChangeHandler}
+                />
+            </div>
+        </>
+    );
+};

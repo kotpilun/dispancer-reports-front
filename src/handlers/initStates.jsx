@@ -17,7 +17,7 @@ export const useInitStates = (dispatch, setIsShowModal, setAction, isShowModal, 
     const onAddHandle = () => {
         setIsShowModal(!isShowModal);
         const sportsCategory = Object.values(CATEGORIES)[0];
-        const dispancerByDefault = dispancers.allDispancers[0].name;
+        const dispancerByDefault = dispancers?.allDispancers[0]?.name;
         dispatch(setChildInfo({ sportsCategory, dispancer: dispancerByDefault }));
         setAction('add');
     }

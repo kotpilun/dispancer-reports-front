@@ -17,7 +17,6 @@ import { getChildren } from './redux/slices/childrenListSlice.js'
 import { useOnClickHandlers } from './handlers/clickbuttonHandlers.jsx';
 import { renderRows } from './handlers/renderRows';
 import { useInitStates } from './handlers/initStates.jsx';
-import TestComponent from './components/TestComponent/TestComponent.jsx';
 
 function App() {
 	const [isShowModal, setIsShowModal] = useState(false);
