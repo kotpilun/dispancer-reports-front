@@ -34,7 +34,7 @@ function App() {
 	}, []);
 	
 
-	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, isShowModal, setIsShowPopup, isShowPopup);
+	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, isShowModal, setIsShowPopup, isShowPopup, setAction);
 	const { onEditHandle, onDeleteHandle } = useInitStates(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
 
 	return (

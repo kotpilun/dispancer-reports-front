@@ -15,13 +15,14 @@ export const useOnClickHandlers = (
     setIsShowModal,  
     isShowModal, 
     setIsShowPopup, 
-    isShowPopup) => {
+    isShowPopup,
+    setAction) => {
 
     const dispancers = useSelector((state) => state.dispancerReduser.dispancersInfo);
     const children = useSelector((store) => store.childrenReducer.children);
-    const childInfo = useSelector((state) => state.childrenReducer.childInfo);
-    const [toggleModalAction, setToggleModalAction] = useState(false);
-    let childrenList = children.childrenList;
+    const childInfo = useSelector((state) => state.childrenReducer.childInfo); //текущее состояние в модалке
+    const [toggleModalAction, setToggleModalAction] = useState(false); //флаг, чтобы useEffect выполнялся только если action == toggleModal
+    let childrenList = children.childrenList; //список всех детей
 
     useEffect(() => {
         if (toggleModalAction) {
@@ -43,6 +44,7 @@ export const useOnClickHandlers = (
                 setIsShowModal(!isShowModal);
                 await dispatch(getDispancers());
                 setToggleModalAction(false);
+                setAction('add');
                 break;
             }
 
@@ -54,12 +56,11 @@ export const useOnClickHandlers = (
             case 'edit':
                 try {
                     let newChildInfo = excangeNameIdDispanser(childInfo, dispancers);
-
-                    setChildInfo(newChildInfo);
-
+                    
                     await patchChild(childInfo._id, newChildInfo);
-                    childrenList = childrenList.map(item => item._id === childInfo._id ? childInfo : item);
-                    dispatch(setChildrenList(childrenList));
+
+                    const newChildrenList = childrenList.map(item => item._id === childInfo._id ? childInfo : item);
+                    dispatch(setChildrenList(newChildrenList));
 
                     setIsShowModal(!isShowModal);
                 } catch (error) {
@@ -72,11 +73,12 @@ export const useOnClickHandlers = (
                 try {
                     let newChildInfo = excangeNameIdDispanser(childInfo, dispancers);
 
-                    setChildInfo(newChildInfo);
-
                     const newChild = await addChild(newChildInfo);  
+                    newChild.child.dispancer = childInfo.dispancer;
+
                     const newChildrenList = [...childrenList, newChild.child];
                     dispatch(setChildrenList(newChildrenList));
+
                     setIsShowModal(!isShowModal);
                 } catch (error) {
                     console.error("Error adding child:", error);
