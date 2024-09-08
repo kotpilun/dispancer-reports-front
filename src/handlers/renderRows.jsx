@@ -1,9 +1,9 @@
 import { Row } from "../components/Row";
 
-export const renderRows = (children, searchValue, onEditHandle, onDeleteHandle) => {
-    if (children.length > 0) {
+export const renderRows = (childrenList, searchValue, onEditHandle, onDeleteHandle) => {
+    if (childrenList.length > 0) {
         return (
-            children
+            childrenList
             .slice()
             .sort((a,b) => {
                 if (a.surname < b.surname) return -1;
