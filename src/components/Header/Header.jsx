@@ -9,7 +9,7 @@ export function Header({ onClickHandle }) {
     return (
         <div className={styles["table-header-wrapper"]}>
             <Button name="Добавить" action='toggleModal' onClickHandle={onClickHandle}/>
-            <Button name="Сформировать отчет"   action='create doc' onClickHandle={onClickHandle}/>
+            <Button name="Сформировать заявки" action='toggleReportModal' onClickHandle={onClickHandle}/>
             <SearchInput />
         </div>
         );

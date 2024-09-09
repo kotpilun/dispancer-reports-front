@@ -5,23 +5,34 @@ import deleteIcon from '../../assets/icons/delete.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCount } from '../../redux/slices/countSlice';
 import { modifyDateOfBirth } from '../../utils/modifyDateOfBirth';
+import { removeChildInfoFromReport, addChildInfoToReport } from '../../redux/slices/reportDataSlice';
+import { setChecked, setUnchecked } from '../../redux/slices/childrenListSlice';
 
-export function Row({ childInfo, onEditHandle, onDeleteHandle }) {
+export function Row({ childInfo, onEditHandle, onDeleteHandle, checked }) {
     const dispatch = useDispatch();
     const count = useSelector((state) => state.countReduser.count);
 
     const onCheckBoxHandle = (e) => {
-        e.target.checked ? dispatch(setCount(count + 1)) : dispatch(setCount(count - 1));
+        if (e.target.checked) {
+            dispatch(setCount(count + 1));
+            dispatch(addChildInfoToReport(childInfo)); 
+            dispatch(setChecked(childInfo));
+        } else {
+            dispatch(setCount(count - 1));
+            dispatch(removeChildInfoFromReport(childInfo)); 
+            dispatch(setUnchecked(childInfo));
+        };
     };
-
+    
     const modifiedDateOfBirth = modifyDateOfBirth(childInfo.dateOfBirth);
-
+    
     return (
         <div className={styles["table-context-wrapper"]}>
             <div className={`${styles["table-cell-center"]} ${styles["table-cell-action"]}`}>
                 <input 
                     type="checkbox" 
                     onChange={e => onCheckBoxHandle(e)}
+                    checked={checked || false}
                     />
             </div>
             <div className={styles["table-context"]}>{childInfo.surname}</div>

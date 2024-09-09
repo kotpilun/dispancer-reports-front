@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addChild } from '../controllers/addChild.jsx';
 import { createDoc } from '../controllers/createDoc.jsx';
 import { deleteChild } from '../controllers/deleteChild.jsx';
@@ -11,18 +11,21 @@ import { getDispancers } from '../redux/slices/dispansersSlice.js';
 import { useEffect, useState } from 'react';
 
 export const useOnClickHandlers = (
-    dispatch, 
     setIsShowModal,  
     isShowModal, 
     setIsShowPopup, 
     isShowPopup,
-    setAction) => {
+    setAction, 
+    isShowReportModal, 
+    setIsShowReportModal) => {
 
     const dispancers = useSelector((state) => state.dispancerReduser.dispancersInfo);
     const children = useSelector((store) => store.childrenReducer.children);
     const childInfo = useSelector((state) => state.childrenReducer.childInfo); //текущее состояние в модалке
     const [toggleModalAction, setToggleModalAction] = useState(false); //флаг, чтобы useEffect выполнялся только если action == toggleModal
     let childrenList = children.childrenList; //список всех детей
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (toggleModalAction) {
@@ -48,8 +51,19 @@ export const useOnClickHandlers = (
                 break;
             }
 
+            case 'toggleReportModal': {
+                setIsShowReportModal(!isShowReportModal);
+                setAction('create doc');
+                break;
+            }
+
             case 'closeModal': {
                 setIsShowModal(!isShowModal);
+                break;
+            }
+
+            case 'closeReportModal': {
+                setIsShowReportModal(!isShowReportModal);
                 break;
             }
 

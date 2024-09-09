@@ -3,6 +3,7 @@ import { childrenReducer } from "../slices/childrenListSlice";
 import { countReduser } from "../slices/countSlice";
 import { dispancerReduser } from "../slices/dispansersSlice";
 import { buttonIsEnabledReducer } from "../slices/buttonIsEnabledSlice";
+import { reportDataReducer } from "../slices/reportDataSlice";
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
         countReduser,
         dispancerReduser,
         buttonIsEnabledReducer,
+        reportDataReducer,
     },
 });
 

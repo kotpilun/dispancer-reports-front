@@ -17,6 +17,7 @@ export const renderRows = (childrenList, searchValue, onEditHandle, onDeleteHand
                     childInfo={obj}
                     onEditHandle={onEditHandle}
                     onDeleteHandle={onDeleteHandle}
+                    checked={obj?.checked}
                 />
             ))
         );	

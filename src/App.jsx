@@ -17,9 +17,11 @@ import { getChildren } from './redux/slices/childrenListSlice.js'
 import { useOnClickHandlers } from './handlers/clickbuttonHandlers.jsx';
 import { renderRows } from './handlers/renderRows';
 import { useInitStates } from './handlers/initStates.jsx';
+import { ReportModal } from './components/ReportModal/ReportModal.jsx';
 
 function App() {
 	const [isShowModal, setIsShowModal] = useState(false);
+	const [isShowReportModal, setIsShowReportModal] = useState(false);
 	// флаг, указывающий откуда была открыта модалка, для понимания как должна работать кнопка Сохранить на модалке
 	const [action, setAction] = useState('');
 	const [isShowPopup, setIsShowPopup] = useState(false);
@@ -34,8 +36,8 @@ function App() {
 	}, []);
 	
 
-	const { onClickHandle } = useOnClickHandlers(dispatch, setIsShowModal, isShowModal, setIsShowPopup, isShowPopup, setAction);
-	const { onEditHandle, onDeleteHandle } = useInitStates(dispatch, setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
+	const { onClickHandle } = useOnClickHandlers(setIsShowModal, isShowModal, setIsShowPopup, isShowPopup, setAction, isShowReportModal, setIsShowReportModal);
+	const { onEditHandle, onDeleteHandle } = useInitStates(setIsShowModal, setAction, isShowModal, setIsShowPopup, isShowPopup);
 
 	return (
 		<>
@@ -43,6 +45,12 @@ function App() {
 			<Wrapper>
 				{isShowModal && 
 					<Modal 
+					onClickHandle={onClickHandle}
+					action={action}
+					/>
+				}
+				{isShowReportModal && 
+					<ReportModal 
 					onClickHandle={onClickHandle}
 					action={action}
 					/>

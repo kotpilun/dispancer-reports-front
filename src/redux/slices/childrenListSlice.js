@@ -7,7 +7,7 @@ const initialState = {
         childrenList: [],
         status: true,
     },
-    childInfo: {},
+    childInfo: {}, 
 };
 
 export const getChildren = createAsyncThunk(
@@ -32,7 +32,19 @@ export const childrenSlice = createSlice({
         
         setChildInfo: (state, action) => {
             state.childInfo = action.payload;
-        }
+        },
+
+        setChecked: (state, action) => {
+            const { _id } = action.payload; 
+            state.children.childrenList = state.children.childrenList.map((child) => 
+                child._id === _id ? { ...child, checked: true } : child);
+        },
+
+        setUnchecked: (state, action) => {
+            const { _id } = action.payload; 
+            state.children.childrenList = state.children.childrenList.map((child) => 
+                child._id === _id ? { ...child, checked: false } : child);
+        },
     },
 
     extraReducers: (builder) => {
@@ -47,4 +59,4 @@ export const childrenSlice = createSlice({
 });
 
 export const childrenReducer = childrenSlice.reducer;
-export const { setChildrenList, setSearchValue, setChildInfo } = childrenSlice.actions;
+export const { setChildrenList, setSearchValue, setChildInfo, setChecked, setUnchecked} = childrenSlice.actions;
