@@ -9,6 +9,7 @@ import { excangeNameIdDispanser } from '../utils/excangeNameIdDispanser.js';
 import { CATEGORIES } from '../config/config.js';
 import { getDispancers } from '../redux/slices/dispansersSlice.js';
 import { useEffect, useState } from 'react';
+import { editChildInfoOnReport, setReportData } from '../redux/slices/reportDataSlice.js';
 
 export const useOnClickHandlers = (
     setIsShowModal,  
@@ -22,6 +23,7 @@ export const useOnClickHandlers = (
     const dispancers = useSelector((state) => state.dispancerReduser.dispancersInfo);
     const children = useSelector((store) => store.childrenReducer.children);
     const childInfo = useSelector((state) => state.childrenReducer.childInfo); //текущее состояние в модалке
+    const reportData = useSelector((state)=> state.reportDataReducer.reportData);
     const [toggleModalAction, setToggleModalAction] = useState(false); //флаг, чтобы useEffect выполнялся только если action == toggleModal
     let childrenList = children.childrenList; //список всех детей
 
@@ -53,7 +55,9 @@ export const useOnClickHandlers = (
 
             case 'toggleReportModal': {
                 setIsShowReportModal(!isShowReportModal);
+                dispatch(setReportData({...reportData, give: '', city:'', dateOfCompetition: '', year: ''}))
                 setAction('create doc');
+                console.log('reportData', reportData)
                 break;
             }
 
@@ -70,11 +74,13 @@ export const useOnClickHandlers = (
             case 'edit':
                 try {
                     let newChildInfo = excangeNameIdDispanser(childInfo, dispancers);
+                    console.log('childInfo',childInfo)
                     
                     await patchChild(childInfo._id, newChildInfo);
 
                     const newChildrenList = childrenList.map(item => item._id === childInfo._id ? childInfo : item);
                     dispatch(setChildrenList(newChildrenList));
+                    dispatch(editChildInfoOnReport(childInfo));
 
                     setIsShowModal(!isShowModal);
                 } catch (error) {
@@ -117,7 +123,7 @@ export const useOnClickHandlers = (
 
             case 'create doc':
                 try {
-                    await createDoc();
+                    await createDoc(reportData);
                     break;   
                 } catch (error) {
                     console.error("Error deleting child:", error);

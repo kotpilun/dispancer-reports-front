@@ -26,11 +26,10 @@ export function ReportModal({ onClickHandle, action }) {
 
     const onChangeHandle = (e) => {
         const {name, value} = e.target;
-        console.log('111')
         dispatch(setReportData({...reportData, [name]: value}));
+        console.log('reportData',reportData)
     }
 
-    console.log(reportData)
 
     return (
         <div className={styles["parent-modal"]}>

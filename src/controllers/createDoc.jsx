@@ -1,8 +1,8 @@
 import { notify } from "../handlers/notify";
 import axios from "./axios";
 
-export function createDoc() {
-    return axios.post('/docs', null, {
+export async function createDoc(reportData) {
+    return axios.post('/docs', reportData, {
         responseType: 'blob', // Указываем, что ожидаем бинарные данные
     })
     .then(response => {
