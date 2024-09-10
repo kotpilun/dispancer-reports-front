@@ -12,7 +12,7 @@ export async function createDoc(reportData) {
         // Создаем временную ссылку для скачивания
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', 'example.xlsx'); // Имя файла
+        link.setAttribute('download', 'reports.zip'); // Имя файла
 
         // Добавляем ссылку в документ и инициируем скачивание
         document.body.appendChild(link);

@@ -137,6 +137,16 @@ export function ReportModal({ onClickHandle, action }) {
                         onChange={onChangeHandle}
                     />
                 </div>
+                <span>Этап (римская цифра)</span>
+                <div className={styles["input-wrapper"]}>
+                    <input
+                        type="text"
+                        name="stage"
+                        className={styles.input}
+                        value={reportData.stage || ''}
+                        onChange={onChangeHandle}
+                    />
+                </div>
                 <span>Год</span>
                 <div className={styles["input-wrapper"]}>
                     <input

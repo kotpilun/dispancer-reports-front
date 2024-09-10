@@ -63,7 +63,8 @@ export const useOnClickHandlers = (
                     year: '', 
                     competitonType: 'Чемпионат',
                     girlsBirthYears: '',
-                    boysBirthYears: ''
+                    boysBirthYears: '',
+                    stage: ''
                 }));
                 setAction('create doc');
                 break;
