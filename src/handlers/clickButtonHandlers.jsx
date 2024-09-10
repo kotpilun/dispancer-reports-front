@@ -55,9 +55,17 @@ export const useOnClickHandlers = (
 
             case 'toggleReportModal': {
                 setIsShowReportModal(!isShowReportModal);
-                dispatch(setReportData({...reportData, give: '', city:'', dateOfCompetition: '', year: ''}))
+                dispatch(setReportData({
+                    ...reportData, 
+                    give: '', 
+                    city:'', 
+                    dateOfCompetition: '', 
+                    year: '', 
+                    competitonType: 'Чемпионат',
+                    girlsBirthYears: '',
+                    boysBirthYears: ''
+                }));
                 setAction('create doc');
-                console.log('reportData', reportData)
                 break;
             }
 

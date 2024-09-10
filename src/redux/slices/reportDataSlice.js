@@ -6,7 +6,8 @@ const initialState = {
         give: '',
         city: '',
         dateOfCompetition: '',
-        year: ''
+        year: '',
+        competitonType: 'Чемпионат',
     }
 };
 

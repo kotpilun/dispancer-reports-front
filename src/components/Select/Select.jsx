@@ -10,7 +10,7 @@ export function Select({ label, name, renderFunction }) {
     return (
         <>
         <span>{ label }</span>
-            <div className={styles["input-wrapper"]}>
+        <div className={styles["input-wrapper"]}>
             <select
                 name={name}
                 id={name}

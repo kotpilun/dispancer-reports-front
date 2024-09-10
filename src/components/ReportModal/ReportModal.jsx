@@ -20,22 +20,56 @@ export function ReportModal({ onClickHandle, action }) {
     };
     }, []);
 
-    // const [reportData, setReportData] = useState({});
     const reportData = useSelector((state) => state.reportDataReducer.reportData);
     const dispatch = useDispatch();
 
     const onChangeHandle = (e) => {
         const {name, value} = e.target;
         dispatch(setReportData({...reportData, [name]: value}));
-        console.log('reportData',reportData)
-    }
+    };
 
+    const formFields = {
+        'Чемпионат': (
+            <>
+                <span>Год</span>
+                <div className={styles["input-wrapper"]}>
+                    <input
+                        type="text"
+                        name="year"
+                        className={styles.input}
+                        value={reportData.year || ''}
+                        onChange={onChangeHandle}
+                    />
+                </div>
+            </>
+        ),
+        'Ruza Cup': (
+            <>
+                <span>Число, месяц</span>
+                <div className={styles["input-wrapper"]}>
+                    <input
+                        type="text"
+                        name="dateOfCompetition"
+                        className={styles.input}
+                        value={reportData.dateOfCompetition || ''}
+                        onChange={onChangeHandle}
+                    />
+                </div>
 
-    return (
-        <div className={styles["parent-modal"]}>
-            <div className={styles.modal}>
-                <h1>Сформировать заявки</h1>
-
+                <span>Год</span>
+                <div className={styles["input-wrapper"]}>
+                    <input
+                        type="text"
+                        name="year"
+                        className={styles.input}
+                        value={reportData.year || ''}
+                        onChange={onChangeHandle}
+                    />
+                </div>
+            </>
+        ),
+        'Открытый турнир': (
+            <>
                 <span>Посвященного</span>
                 <div className={styles["input-wrapper"]}>
                     <input
@@ -79,7 +113,71 @@ export function ReportModal({ onClickHandle, action }) {
                         onChange={onChangeHandle}
                     />
                 </div>
+            </>
+        ),
+        'Золотая рыбка': (
+            <>
+                <span>Юноши года рождения (YYYY-YYYY)</span>
+                <div className={styles["input-wrapper"]}>
+                    <input
+                        type="text"
+                        name="boysBirthYears"
+                        className={styles.input}
+                        value={reportData.boysBirthYears || ''}
+                        onChange={onChangeHandle}
+                    />
+                </div>
+                <span>Девушки года рождения (YYYY-YYYY)</span>
+                <div className={styles["input-wrapper"]}>
+                    <input
+                        type="text"
+                        name="girlsBirthYears"
+                        className={styles.input}
+                        value={reportData.girlsBirthYears || ''}
+                        onChange={onChangeHandle}
+                    />
+                </div>
+                <span>Год</span>
+                <div className={styles["input-wrapper"]}>
+                    <input
+                        type="text"
+                        name="year"
+                        className={styles.input}
+                        value={reportData.year || ''}
+                        onChange={onChangeHandle}
+                    />
+                </div>
+            </>
+        ) 
+    }
 
+    return (
+        <div className={styles["parent-modal"]}>
+            <div className={styles.modal}>
+                <h1>Сформировать заявки</h1>
+                <span>Вид соревнования</span>
+                <div className={styles["input-wrapper"]}>
+                    <select
+                        name='competitonType'
+                        id='competitonType'
+                        value={reportData.competitonType}
+                        onChange={onChangeHandle}
+                    >
+                        <option value='Чемпионат'>
+                            Чемпионат
+                        </option>
+                        <option value='Ruza Cup'>
+                            Ruza Cup
+                        </option>
+                        <option value='Открытый турнир'>
+                            Открытый турнир
+                        </option>
+                        <option value='Золотая рыбка'>
+                            Золотая рыбка
+                        </option>
+                    </select>
+                </div>
+                {formFields[reportData.competitonType]}
                 <div className={styles["button-wrapper"]}>
                     <Button name="Сформировать" action={action} onClickHandle={onClickHandle} />
                     <Button name="Закрыть" action="closeReportModal" onClickHandle={onClickHandle} />
