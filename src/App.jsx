@@ -14,7 +14,7 @@ import { Wrapper } from './components/Wrapper';
 import { Counter } from './components/Counter';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChildren } from './redux/slices/childrenListSlice.js'
-import { useOnClickHandlers } from './handlers/clickbuttonHandlers.jsx';
+import { useOnClickHandlers } from './handlers/clickButtonHandlers.jsx';
 import { renderRows } from './handlers/renderRows';
 import { useInitStates } from './handlers/initStates.jsx';
 import { ReportModal } from './components/ReportModal/ReportModal.jsx';
