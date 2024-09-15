@@ -1,5 +1,5 @@
 export const BFF_CONFIG = {
-    HOST: 'localhost',
+    HOST: '192.168.0.102',
     PORT: 4444,
 };
 
