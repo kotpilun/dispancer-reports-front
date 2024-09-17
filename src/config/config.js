@@ -17,10 +17,10 @@ export const CATEGORIES = {
 // Проверяем доступность удаленного хоста через HTTP-запрос
 async function checkNetwork() {
     try {
-      const response = await fetch('http://192.168.0.107:4444', { method: 'HEAD' });
+      const response = await fetch('http://192.168.0.102:4444', { method: 'HEAD' });
       if (response.ok) {
-        console.log('Сеть доступна, используем 192.168.0.107');
-        return '192.168.0.107';
+        console.log('Сеть доступна, используем 192.168.0.102');
+        return '192.168.0.102';
       }
     } catch (error) {
       console.log('Сеть недоступна, используем localhost', error);
