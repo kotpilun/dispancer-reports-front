@@ -1,5 +1,5 @@
 export const BFF_CONFIG = {
-    HOST: 'localhost',
+    HOST: '192.168.0.108',
     PORT: 4444,
 };
 
@@ -17,10 +17,10 @@ export const CATEGORIES = {
 // Проверяем доступность удаленного хоста через HTTP-запрос
 async function checkNetwork() {
     try {
-      const response = await fetch('http://192.168.0.102:4444', { method: 'HEAD' });
+      const response = await fetch('http://192.168.0.108:4444', { method: 'HEAD' });
       if (response.ok) {
-        console.log('Сеть доступна, используем 192.168.0.102');
-        return '192.168.0.102';
+        console.log('Сеть доступна, используем 192.168.0.108');
+        return '192.168.0.108';
       }
     } catch (error) {
       console.log('Сеть недоступна, используем localhost', error);
