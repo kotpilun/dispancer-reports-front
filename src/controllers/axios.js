@@ -1,10 +1,10 @@
 import axios from "axios";
-import { BFF_CONFIG } from '../config/config.js';
+import { apiURL } from "../config/config.js";
 
-const { HOST, PORT } = BFF_CONFIG;
+// const { HOST, PORT } = BFF_CONFIG;
 
 const instance = axios.create({
-    baseURL: `http://${HOST}:${PORT}`
+  baseURL: apiURL,
 });
-
+console.log("apiURL", apiURL);
 export default instance;
